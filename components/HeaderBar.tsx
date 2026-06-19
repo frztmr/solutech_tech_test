@@ -35,11 +35,7 @@ export default function HeaderBar() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 w-full transition-all duration-500 ease-in-out ${
-          isScrolled
-            ? "bg-black/40 backdrop-blur-lg border-b border-white/5 py-4 shadow-lg shadow-black/10"
-            : "bg-transparent py-6 border-b border-transparent"
-        }`}
+        className="fixed top-0 left-0 right-0 z-50 w-full bg-transparent py-6 border-none transition-all duration-500 ease-in-out"
       >
         <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
           
