@@ -29,8 +29,7 @@ export default function HeaderBar() {
   ];
 
   const navLinksRight = [
-    { name: "TENTANG KAMI", href: "#tentang-kami" },
-    { name: "KONTAK", href: "#kontak" },
+    { name: "PRODUK", href: "#product-list" },
   ];
 
   return (
