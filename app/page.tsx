@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import HeaderBar from "@/components/HeaderBar";
 import { carouselData } from "@/data/keunggulanGMC";
+import { kategoryCard } from "@/data/kategoryCard";
 
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -384,193 +385,48 @@ export default function Home() {
         </div>
       </section>
 
-      {/* PRODUCTS DISPLAY SECTION */}
-      <section className="relative py-24 px-6 z-20 bg-[#030607] overflow-x-hidden">
+      {/* PRODUCTS DISPLAY SECTION (Category Cards Grid) */}
+      <section className="relative py-24 px-6 md:px-12 z-20 bg-black overflow-x-hidden border-t border-white/5">
         <div className="max-w-7xl mx-auto">
-          {/* Header */}
-          <div className="text-center max-w-2xl mx-auto mb-20">
-            <h2 className="text-xs font-extrabold tracking-widest text-cyan-400 uppercase mb-3">PRODUCT PORTFOLIO</h2>
-            <p className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
-              Innovative Solutions for Every Corner of Your Home
-            </p>
-            <div className="w-12 h-1 bg-cyan-400 mx-auto mt-6 rounded-full"></div>
+          
+          {/* 2x2 Category Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+            {kategoryCard.map((card, idx) => {
+              // Map old anchor links so navigation still functions
+              const anchorIds = ["speaker", "kipas", "kompor", "grill"];
+              return (
+                <div
+                  key={idx}
+                  id={anchorIds[idx]}
+                  className="relative overflow-hidden rounded-[24px] bg-[#131517] border border-white/5 p-8 sm:p-10 min-h-[200px] flex items-center justify-between transition-all duration-500 ease-out hover:bg-[#1c1f22] hover:border-white/10 group cursor-pointer shadow-lg scroll-mt-24"
+                >
+                  {/* Left: Text Content */}
+                  <div className="flex-1 max-w-[65%] space-y-3 z-10">
+                    <h3 className="text-xl sm:text-2xl font-bold text-white transition-colors duration-300">
+                      {card.title}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed font-normal">
+                      {card.desc}
+                    </p>
+                  </div>
+
+                  {/* Right: Cropped Speaker Image peeking from the edge */}
+                  <div className="absolute right-0 top-0 bottom-0 w-[35%] overflow-hidden flex items-center justify-end pointer-events-none">
+                    <div className="relative w-full h-[85%] translate-x-[25%] transition-transform duration-500 ease-out group-hover:scale-105 group-hover:translate-x-[15%]">
+                      <Image
+                        src={card.image}
+                        alt={card.title}
+                        fill
+                        sizes="180px"
+                        className="object-contain object-left filter brightness-95"
+                      />
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
 
-          {/* Product Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Speaker Collection */}
-            <div
-              id="speaker"
-              className="relative group overflow-hidden rounded-3xl border border-white/5 bg-gradient-to-br from-cyan-950/20 to-neutral-900/10 p-8 flex flex-col justify-between transition-all duration-500 hover:border-white/15 hover:shadow-xl scroll-mt-24"
-            >
-              <div className="absolute top-0 right-0 w-[200px] h-[200px] rounded-full bg-cyan-500/5 blur-[60px] opacity-50 z-0"></div>
-              <div className="relative z-10 flex flex-col md:flex-row gap-6 justify-between items-start">
-                <div className="flex-1 space-y-4">
-                  <span className="text-[11px] font-bold tracking-widest text-cyan-400 uppercase">High-Fidelity Audio</span>
-                  <h3 className="text-2xl font-bold text-white leading-tight">GMC Speaker Collection</h3>
-                  <p className="text-sm text-neutral-400 leading-relaxed">
-                    Experience ultimate clarity and deep bass. Engineered for audiophiles who demand nothing but the absolute best sound signature.
-                  </p>
-                  <ul className="space-y-2 pt-2">
-                    {["Active Subwoofer System", "Bluetooth 5.3 & Optical Input", "RGB Sync Ambient Lighting"].map((feat, index) => (
-                      <li key={index} className="flex items-center gap-2.5 text-xs text-neutral-300">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-3.5 h-3.5 text-cyan-400 flex-shrink-0">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
-                        </svg>
-                        {feat}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="w-full md:w-auto flex justify-center md:justify-end items-center py-4 md:py-0">
-                  <div className="relative w-40 h-44 flex items-center justify-center drop-shadow-[0_15px_30px_rgba(6,182,212,0.2)]">
-                    <Image
-                      src="/speaker.png"
-                      alt="GMC Speaker"
-                      width={140}
-                      height={160}
-                      className="object-contain filter brightness-115 transition-transform duration-500 group-hover:scale-105"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="relative z-10 pt-6 mt-6 border-t border-white/5 flex items-center justify-between">
-                <span className="text-xs font-semibold text-white/50 group-hover:text-white/80 transition-colors">Explore speaker series</span>
-                <button className="flex items-center justify-center w-9 h-9 rounded-full bg-white/5 border border-white/10 group-hover:bg-white group-hover:text-black transition-all duration-300">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-4 h-4">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-                  </svg>
-                </button>
-              </div>
-            </div>
-
-            {/* Smart Cooling Fans */}
-            <div
-              id="kipas"
-              className="relative group overflow-hidden rounded-3xl border border-white/5 bg-gradient-to-br from-teal-950/20 to-neutral-900/10 p-8 flex flex-col justify-between transition-all duration-500 hover:border-white/15 hover:shadow-xl scroll-mt-24"
-            >
-              <div className="absolute top-0 right-0 w-[200px] h-[200px] rounded-full bg-teal-500/5 blur-[60px] opacity-50 z-0"></div>
-              <div className="relative z-10 flex flex-col md:flex-row gap-6 justify-between items-start">
-                <div className="flex-1 space-y-4">
-                  <span className="text-[11px] font-bold tracking-widest text-cyan-400 uppercase">Silent & Powerful Breeze</span>
-                  <h3 className="text-2xl font-bold text-white leading-tight">GMC Smart Cooling Fans</h3>
-                  <p className="text-sm text-neutral-400 leading-relaxed">
-                    Aerodynamic blades coupled with robust motors to deliver maximum airflow with minimal sound footprint.
-                  </p>
-                  <ul className="space-y-2 pt-2">
-                    {["Whisper-Quiet Technology", "Multi-Speed Controls", "Energy Efficiency Certified"].map((feat, index) => (
-                      <li key={index} className="flex items-center gap-2.5 text-xs text-neutral-300">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-3.5 h-3.5 text-cyan-400 flex-shrink-0">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
-                        </svg>
-                        {feat}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="w-full md:w-auto flex justify-center md:justify-end items-center py-4 md:py-0">
-                  <div className="w-32 h-32 rounded-2xl bg-white/[0.02] border border-white/5 flex items-center justify-center backdrop-blur-xl group-hover:scale-105 transition-transform duration-500">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-16 h-16 text-cyan-400">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364-.707.707M6.343 17.657l-.707.707m0-12.728.707.707m11.314 11.314.707-.707M12 8.25a3.75 3.75 0 1 0 0 7.5 3.75 3.75 0 0 0 0-7.5Z" />
-                    </svg>
-                  </div>
-                </div>
-              </div>
-              <div className="relative z-10 pt-6 mt-6 border-t border-white/5 flex items-center justify-between">
-                <span className="text-xs font-semibold text-white/50 group-hover:text-white/80 transition-colors">Explore fans series</span>
-                <button className="flex items-center justify-center w-9 h-9 rounded-full bg-white/5 border border-white/10 group-hover:bg-white group-hover:text-black transition-all duration-300">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-4 h-4">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-                  </svg>
-                </button>
-              </div>
-            </div>
-
-            {/* Cooker Collection */}
-            <div
-              id="kompor"
-              className="relative group overflow-hidden rounded-3xl border border-white/5 bg-gradient-to-br from-amber-950/20 to-neutral-900/10 p-8 flex flex-col justify-between transition-all duration-500 hover:border-white/15 hover:shadow-xl scroll-mt-24"
-            >
-              <div className="absolute top-0 right-0 w-[200px] h-[200px] rounded-full bg-amber-500/5 blur-[60px] opacity-50 z-0"></div>
-              <div className="relative z-10 flex flex-col md:flex-row gap-6 justify-between items-start">
-                <div className="flex-1 space-y-4">
-                  <span className="text-[11px] font-bold tracking-widest text-cyan-400 uppercase">Precision Kitchen Technology</span>
-                  <h3 className="text-2xl font-bold text-white leading-tight">GMC Induction & Gas Cookers</h3>
-                  <p className="text-sm text-neutral-400 leading-relaxed">
-                    Heat up your culinary imagination. Precision temperature control makes cooking an absolute pleasure every day.
-                  </p>
-                  <ul className="space-y-2 pt-2">
-                    {["Rapid Heating Element", "Double Burner Safety Guard", "Easy-to-clean Tempered Glass"].map((feat, index) => (
-                      <li key={index} className="flex items-center gap-2.5 text-xs text-neutral-300">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-3.5 h-3.5 text-cyan-400 flex-shrink-0">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
-                        </svg>
-                        {feat}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="w-full md:w-auto flex justify-center md:justify-end items-center py-4 md:py-0">
-                  <div className="w-32 h-32 rounded-2xl bg-white/[0.02] border border-white/5 flex items-center justify-center backdrop-blur-xl group-hover:scale-105 transition-transform duration-500">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-16 h-16 text-amber-500">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M15.362 5.214A8.252 8.252 0 0 1 12 21 8.25 8.25 0 0 1 6.038 7.047 8.287 8.287 0 0 0 9 9.601a8.983 8.983 0 0 1 3.361-6.867 8.21 8.21 0 0 0 3 2.48Z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 18a3.75 3.75 0 0 0 .495-7.467 5.99 5.99 0 0 0-1.925 3.546 5.974 5.974 0 0 1-2.133-1A3.75 3.75 0 0 0 12 18Z" />
-                    </svg>
-                  </div>
-                </div>
-              </div>
-              <div className="relative z-10 pt-6 mt-6 border-t border-white/5 flex items-center justify-between">
-                <span className="text-xs font-semibold text-white/50 group-hover:text-white/80 transition-colors">Explore cookers series</span>
-                <button className="flex items-center justify-center w-9 h-9 rounded-full bg-white/5 border border-white/10 group-hover:bg-white group-hover:text-black transition-all duration-300">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-4 h-4">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-                  </svg>
-                </button>
-              </div>
-            </div>
-
-            {/* BBQ Grills */}
-            <div
-              id="grill"
-              className="relative group overflow-hidden rounded-3xl border border-white/5 bg-gradient-to-br from-red-950/20 to-neutral-900/10 p-8 flex flex-col justify-between transition-all duration-500 hover:border-white/15 hover:shadow-xl scroll-mt-24"
-            >
-              <div className="absolute top-0 right-0 w-[200px] h-[200px] rounded-full bg-red-500/5 blur-[60px] opacity-50 z-0"></div>
-              <div className="relative z-10 flex flex-col md:flex-row gap-6 justify-between items-start">
-                <div className="flex-1 space-y-4">
-                  <span className="text-[11px] font-bold tracking-widest text-cyan-400 uppercase">Premium Indoor Sizzle</span>
-                  <h3 className="text-2xl font-bold text-white leading-tight">GMC Electric BBQ Grills</h3>
-                  <p className="text-sm text-neutral-400 leading-relaxed">
-                    Gather around for a perfect barbecue feast indoors. Smoke-reduced heating profiles and non-stick grid surfaces.
-                  </p>
-                  <ul className="space-y-2 pt-2">
-                    {["Adjustable Heat Thermostat", "Non-stick Diecast Aluminum Plate", "Detachable Oil Drip Tray"].map((feat, index) => (
-                      <li key={index} className="flex items-center gap-2.5 text-xs text-neutral-300">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-3.5 h-3.5 text-cyan-400 flex-shrink-0">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
-                        </svg>
-                        {feat}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="w-full md:w-auto flex justify-center md:justify-end items-center py-4 md:py-0">
-                  <div className="w-32 h-32 rounded-2xl bg-white/[0.02] border border-white/5 flex items-center justify-center backdrop-blur-xl group-hover:scale-105 transition-transform duration-500">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-16 h-16 text-red-500">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m0-10.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.75c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.57-.598-3.75h-.152c-3.196 0-6.1-1.249-8.25-3.286Zm0 13.036h.008v.008H12v-.008Z" />
-                    </svg>
-                  </div>
-                </div>
-              </div>
-              <div className="relative z-10 pt-6 mt-6 border-t border-white/5 flex items-center justify-between">
-                <span className="text-xs font-semibold text-white/50 group-hover:text-white/80 transition-colors">Explore grill series</span>
-                <button className="flex items-center justify-center w-9 h-9 rounded-full bg-white/5 border border-white/10 group-hover:bg-white group-hover:text-black transition-all duration-300">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-4 h-4">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-                  </svg>
-                </button>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
 
