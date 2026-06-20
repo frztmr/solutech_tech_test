@@ -90,7 +90,7 @@ export default function Home() {
 
   // 1. Speaker Animation Styles (Swipes up and fades out)
   const speakerOpacity = Math.max(0, 1 - easedP * 2.2); // Fades out by p = 0.45
-  const speakerTranslateY = -50 - (60 * easedP); // Slides up from -50% to -110%
+  const speakerTranslateY = -60 * easedP; // Slides up from 0 to -60vh
   const speakerScale = 1 - easedP * 0.15;
 
   // 2. Side Texts Animation Styles (Fades to up and fades out)
@@ -106,7 +106,7 @@ export default function Home() {
   const scrollNoticeOpacity = Math.max(0, 1 - progress * 4);
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#030607] text-white font-sans overflow-x-hidden selection:bg-cyan-500/30 selection:text-cyan-200">
+    <div className="flex flex-col min-h-screen bg-[#030607] text-white font-sans selection:bg-cyan-500/30 selection:text-cyan-200">
       
       {/* ANIMATED STICKY HERO CONTAINER */}
       <div ref={containerRef} className="relative w-full h-[250vh] z-10">
@@ -183,12 +183,12 @@ export default function Home() {
             <div
               style={{
                 opacity: speakerOpacity,
-                transform: `translate(-50%, ${speakerTranslateY}%) scale(${speakerScale})`,
+                transform: `translateY(${speakerTranslateY}vh) scale(${speakerScale})`,
                 pointerEvents: speakerOpacity < 0.1 ? "none" : "auto",
               }}
-              className="absolute top-1/2 left-1/2 w-[65%] sm:w-[45%] md:w-[32vw] max-w-[380px] aspect-[4/5] z-20 transition-all duration-75"
+              className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none transition-all duration-75"
             >
-              <div className="relative w-full h-full flex items-center justify-center">
+              <div className="w-[65%] sm:w-[45%] md:w-[32vw] max-w-[380px] aspect-[4/5] relative flex items-center justify-center pointer-events-auto">
                 <Image
                   src="/speaker.png"
                   alt="GMC Premium Speaker"
@@ -204,17 +204,19 @@ export default function Home() {
             <div
               style={{
                 opacity: headlineOpacity,
-                transform: `translate(-50%, -50%) scale(${headlineScale}) translateY(${headlineTranslateY}px)`,
+                transform: `scale(${headlineScale}) translateY(${headlineTranslateY}px)`,
                 pointerEvents: headlineOpacity < 0.05 ? "none" : "auto",
               }}
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center w-full max-w-4xl px-4 z-20 transition-all duration-75"
+              className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 z-20 pointer-events-none transition-all duration-75"
             >
-              <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white leading-tight font-sans">
-                Jernih Kuat
-              </h1>
-              <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white leading-tight font-sans mt-2">
-                di Setiap Momen
-              </h1>
+              <div className="max-w-4xl w-full pointer-events-auto">
+                <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white leading-tight font-sans">
+                  Jernih Kuat
+                </h1>
+                <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white leading-tight font-sans mt-2">
+                  di Setiap Momen
+                </h1>
+              </div>
             </div>
 
             {/* PILLS: start in row, end scattered around headline */}
@@ -237,7 +239,7 @@ export default function Home() {
       </div>
 
       {/* PRODUCTS DISPLAY SECTION */}
-      <section className="relative py-24 px-6 z-20 bg-[#030607]">
+      <section className="relative py-24 px-6 z-20 bg-[#030607] overflow-x-hidden">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="text-center max-w-2xl mx-auto mb-20">
