@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function HeaderBar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -43,13 +44,20 @@ export default function HeaderBar() {
           <div className="flex items-center gap-10 lg:gap-14">
             {/* GMC Logo */}
             <Link href="/" className="flex items-center gap-3 group focus:outline-none">
-              <div className="flex flex-col items-center justify-center w-9 h-9 rounded-full bg-gradient-to-br from-[#3b5cbd] to-[#1d3580] shadow-md transition-transform duration-300 group-hover:scale-105">
-                <span className="text-[12px] font-black text-white leading-none tracking-tight">gmc</span>
-                <span className="text-[4px] font-bold text-white/90 tracking-widest mt-0.5 uppercase">multimedia</span>
-              </div>
-              <span className="text-xl lg:text-2xl font-black text-white tracking-tighter font-sans select-none">
-                GMC
-              </span>
+              <Image
+                src="/logo_icon.png"
+                alt="GMC Icon"
+                width={36}
+                height={36}
+                className="object-contain transition-transform duration-300 group-hover:scale-105"
+              />
+              <Image
+                src="/logo_text.png"
+                alt="GMC Text"
+                width={85}
+                height={22}
+                className="object-contain brightness-110"
+              />
             </Link>
 
             {/* Left Nav Items */}
